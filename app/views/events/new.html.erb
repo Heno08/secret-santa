@@ -1,0 +1,15 @@
+<h1>Create a new Secret Santa Gift List:</h1>
+
+<%= form_for(@event) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.label :amount %>
+  <%= f.number_field :amount %>
+  <%= f.label :host %>
+  <%= f.text_field  :host %>
+  <%= f.label :participant %>
+  <%= f.text_field  :participant %>
+  <%= f.label :participant %>
+  <%= f.text_field  :participant %>
+  <%= f.submit class: "btn btn-primary" %>
+<% end %>
