@@ -3,6 +3,7 @@ class CreateParticipants < ActiveRecord::Migration[6.1]
     create_table :participants do |t|
       t.string :name
       t.string :email
+      t.references :event, null: false, foreign_key: true
 
       t.timestamps
     end

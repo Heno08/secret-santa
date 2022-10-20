@@ -1,9 +1,7 @@
 <h1>Add all the participants:</h1>
 
-<%= form_for(@event) do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.label :emial %>
-  <%= f.email_field :email %>
+<%= simple_form_for [@event, @participant] do |f| %>
+  <%= f.input :name %>
+  <%= f.input :email %>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>
