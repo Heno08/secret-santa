@@ -1,5 +1,5 @@
 <h1>Your Event: <%= @event.title %></h1>
-<p>Gift Amount: <%= @event.amount %></p>
+<p>Gift Amount: €<%= @event.amount %></p>
 <h2>Add Participants:</h2>
 <p><strong>Participants:</strong></p>
 <ul class="list-group">
@@ -9,4 +9,4 @@
     </li>
   <% end %>
 <p><%= link_to "Add Participant", new_event_participant_path(@event) %></p>
-<p><%= link_to "Generate", scramble_event_participants_path(@event) %></p>
+<p><%= link_to "Generate Emails", scramble_event_participants_path(@event) %></p>

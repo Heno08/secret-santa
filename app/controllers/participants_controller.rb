@@ -1,5 +1,6 @@
 class ParticipantsController < ApplicationController
   before_action :set_event, only: [:new, :create, :scramble]
+  before_action :set_players, only: :scramble
 
   def new
     @participant = Participant.new
@@ -16,15 +17,8 @@ class ParticipantsController < ApplicationController
   end
 
   def scramble
-    emails = []
-    @event.participants.each do |participant|
-      emails<<participant.email
-    end
-    @players = emails
-    @santas = emails.dup
-    @game = {}
-    @santas.each do |santa|
-      @game[santa] = random_player_for(santa)
+    @givers.each do |giver|
+      @game[giver] = random_player_for(giver)
     end
     raise
   end
@@ -39,15 +33,25 @@ class ParticipantsController < ApplicationController
     @event = Event.find(params[:event_id])
   end
 
-  def random_player_for(santa)
+  def set_players
+    @emails = []
+    @event.participants.each do |participant|
+      @emails<<participant.email
+    end
+    @receivers = @emails
+    @givers = @emails.dup
+    @game = {}
+  end
+
+  def random_player_for(giver)
     found = false
     until found do
-      player = @players.sample
-      unless player == santa
+      receiver = @receivers.sample
+      unless receiver == giver
         found = true
-        @players.delete(player)
+        @receivers.delete(receiver)
       end
     end
-    player
+    receiver
   end
 end
