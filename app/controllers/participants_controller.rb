@@ -16,7 +16,10 @@ class ParticipantsController < ApplicationController
   end
 
   def scramble
-    ScrambleJob.perform_now(@event)
+    @emails = @event.participants
+    @receivers = @emails
+    @givers = @emails.dup
+    ScrambleJob.perform_now(@givers, @receivers)
   end
 
   private
