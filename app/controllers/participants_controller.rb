@@ -26,10 +26,18 @@ class ParticipantsController < ApplicationController
     end
     @givers = @emails
     @receivers = @names
-    ScrambleJob.perform_now(@givers, @receivers)
+    perform(@givers, @receivers)
+    SantaMailer.list(@game).deliver_later
   end
 
   private
+
+  def perform(givers, receivers)
+    @game = {}
+    givers.each do |giver|
+      @game[giver] = random_player_for(giver, receivers)
+    end
+  end
 
   def participant_params
     params.require(:participant).permit(:name, :email)
@@ -37,5 +45,16 @@ class ParticipantsController < ApplicationController
 
   def set_event
     @event = Event.find(params[:event_id])
+  end
+
+  def random_player_for(giver, receivers)
+    found = false
+    until found do
+      receiver = receivers.sample
+      unless receiver.include? giver
+        found = true
+      end
+    end
+    receiver
   end
 end

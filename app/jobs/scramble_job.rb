@@ -6,9 +6,6 @@ class ScrambleJob < ApplicationJob
     givers.each do |giver|
       @game[giver] = random_player_for(giver, receivers)
     end
-    puts "Finished!"
-    raise
-    SantaMailer.list(@game)
   end
 
   private
