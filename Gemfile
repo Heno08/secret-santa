@@ -20,6 +20,7 @@ gem 'jbuilder', '~> 2.7'
 gem "simple_form", github: "heartcombo/simple_form"
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
+gem 'letter_opener', group: :development
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
