@@ -7,6 +7,7 @@ class ScrambleJob < ApplicationJob
       @game[giver] = random_player_for(giver, receivers)
     end
     puts "Finished!"
+    raise
     SantaMailer.list(@game)
   end
 
@@ -16,7 +17,7 @@ class ScrambleJob < ApplicationJob
     found = false
     until found do
       receiver = receivers.sample
-      unless receiver == giver
+      unless receiver.include? giver
         found = true
       end
     end

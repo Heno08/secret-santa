@@ -16,9 +16,16 @@ class ParticipantsController < ApplicationController
   end
 
   def scramble
-    @emails = @event.participants
-    @receivers = @emails
-    @givers = @emails.dup
+    @emails = []
+    @event.participants.each do |participant|
+      @emails<<participant.email
+    end
+    @names = []
+    @event.participants.each do |participant|
+      @names<<participant.name
+    end
+    @givers = @emails
+    @receivers = @names
     ScrambleJob.perform_now(@givers, @receivers)
   end
 
